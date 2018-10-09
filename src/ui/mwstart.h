@@ -2,6 +2,7 @@
 #define MWSTART_H
 
 #include <QMainWindow>
+#include "diaabout.h"
 
 namespace Ui {
 class MWStart;
@@ -17,6 +18,11 @@ public:
 
 private:
     Ui::MWStart *ui;
+signals:
+    void sigQuit();
+private slots:
+    void slotQuit();
+    void slotAbout();
 };
 
 #endif // MWSTART_H

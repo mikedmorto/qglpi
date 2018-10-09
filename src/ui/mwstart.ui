@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>300</width>
-    <height>600</height>
+    <width>400</width>
+    <height>400</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -20,7 +20,7 @@
   <widget class="QWidget" name="centralwidget">
    <layout class="QVBoxLayout" name="verticalLayout_2">
     <item>
-     <layout class="QHBoxLayout" name="horizontalLayout">
+     <layout class="QHBoxLayout" name="horizontalLayout_3">
       <item>
        <spacer name="horizontalSpacer_3">
         <property name="orientation">
@@ -35,22 +35,7 @@
        </spacer>
       </item>
       <item>
-       <widget class="QLabel" name="lbl_logo">
-        <property name="sizePolicy">
-         <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-          <horstretch>0</horstretch>
-          <verstretch>0</verstretch>
-         </sizepolicy>
-        </property>
-        <property name="minimumSize">
-         <size>
-          <width>240</width>
-          <height>240</height>
-         </size>
-        </property>
-        <property name="frameShape">
-         <enum>QFrame::Box</enum>
-        </property>
+       <widget class="QLabel" name="lbl_icon">
         <property name="text">
          <string/>
         </property>
@@ -70,19 +55,6 @@
        </spacer>
       </item>
      </layout>
-    </item>
-    <item>
-     <spacer name="verticalSpacer_2">
-      <property name="orientation">
-       <enum>Qt::Vertical</enum>
-      </property>
-      <property name="sizeHint" stdset="0">
-       <size>
-        <width>20</width>
-        <height>36</height>
-       </size>
-      </property>
-     </spacer>
     </item>
     <item>
      <widget class="QComboBox" name="cb_server"/>
@@ -105,21 +77,21 @@
       <item>
        <layout class="QVBoxLayout" name="verticalLayout">
         <item>
-         <widget class="QPushButton" name="pushButton">
+         <widget class="QPushButton" name="btn_connect">
           <property name="text">
            <string>Connect</string>
           </property>
          </widget>
         </item>
         <item>
-         <widget class="QPushButton" name="pushButton_2">
+         <widget class="QPushButton" name="btn_preferences">
           <property name="text">
            <string>Preferences</string>
           </property>
          </widget>
         </item>
         <item>
-         <widget class="QPushButton" name="pushButton_3">
+         <widget class="QPushButton" name="btn_about">
           <property name="text">
            <string>About</string>
           </property>
@@ -139,7 +111,7 @@
          </spacer>
         </item>
         <item>
-         <widget class="QPushButton" name="pushButton_4">
+         <widget class="QPushButton" name="btn_quit">
           <property name="text">
            <string>Quit</string>
           </property>
@@ -169,7 +141,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>300</width>
+     <width>400</width>
      <height>22</height>
     </rect>
    </property>
