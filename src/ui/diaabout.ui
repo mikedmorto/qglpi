@@ -20,7 +20,7 @@
    </sizepolicy>
   </property>
   <property name="windowTitle">
-   <string>DSR - About</string>
+   <string>QGLPI - About</string>
   </property>
   <property name="modal">
    <bool>true</bool>
