@@ -2,7 +2,9 @@
 
 Wctrl::Wctrl(QObject *parent) : QObject(parent)
 {
-    ws = new MWStart();
+    cfg = new Config();
+    cfg->load();
+    ws = new MWStart(this->cfg);
     connect(ws,&MWStart::sigQuit,this,&Wctrl::slotQuit);
 }
 

@@ -12,9 +12,9 @@ class MWStart;
 class MWStart : public QMainWindow
 {
     Q_OBJECT
-
+    Config * cfg;
 public:
-    explicit MWStart(QWidget *parent = nullptr);
+    explicit MWStart(Config * cfg, QWidget *parent = nullptr);
     ~MWStart();
 
 private:

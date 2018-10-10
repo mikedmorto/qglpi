@@ -1,11 +1,12 @@
 #include "mwstart.h"
 #include "ui_mwstart.h"
 
-MWStart::MWStart(QWidget *parent) :
+MWStart::MWStart(Config *cfg, QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MWStart)
 {
     ui->setupUi(this);
+    this->cfg = cfg;
     this->ui->statusbar->setHidden(true);
     QPixmap pix("://files/appicon.png");
     ui->lbl_icon->setPixmap(pix.scaled(128,128,Qt::KeepAspectRatio,Qt::SmoothTransformation));
@@ -33,6 +34,9 @@ void MWStart::slotAbout()
 
 void MWStart::slotPreferences()
 {
-    DiaPreferences dia(this);
-    dia.exec();
+    DiaPreferences dia(cfg,this);
+    if(dia.exec() != QDialog::Accepted)
+        return;
+    // save config
+
 }

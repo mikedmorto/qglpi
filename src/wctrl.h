@@ -10,6 +10,7 @@ class Wctrl : public QObject
     Q_OBJECT
 
     MWStart * ws;
+    Config * cfg;
 public:
     explicit Wctrl(QObject *parent = nullptr);
     void start();
