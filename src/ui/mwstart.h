@@ -3,6 +3,7 @@
 
 #include <QMainWindow>
 #include "diaabout.h"
+#include "diapreferences.h"
 
 namespace Ui {
 class MWStart;
@@ -23,6 +24,7 @@ signals:
 private slots:
     void slotQuit();
     void slotAbout();
+    void slotPreferences();
 };
 
 #endif // MWSTART_H

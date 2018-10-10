@@ -12,6 +12,7 @@ MWStart::MWStart(QWidget *parent) :
 
     connect(this->ui->btn_quit,&QPushButton::clicked,this,&MWStart::slotQuit);
     connect(this->ui->btn_about,&QPushButton::clicked,this,&MWStart::slotAbout);
+    connect(this->ui->btn_preferences,&QPushButton::clicked,this,&MWStart::slotPreferences);
 }
 
 MWStart::~MWStart()
@@ -27,5 +28,11 @@ void MWStart::slotQuit()
 void MWStart::slotAbout()
 {
     DiaAbout dia(this);
+    dia.exec();
+}
+
+void MWStart::slotPreferences()
+{
+    DiaPreferences dia(this);
     dia.exec();
 }
