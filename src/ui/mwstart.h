@@ -4,6 +4,7 @@
 #include <QMainWindow>
 #include "diaabout.h"
 #include "diapreferences.h"
+#include "dialogindata.h"
 
 namespace Ui {
 class MWStart;
@@ -25,6 +26,7 @@ private slots:
     void slotQuit();
     void slotAbout();
     void slotPreferences();
+    void slotConnect();
 };
 
 #endif // MWSTART_H

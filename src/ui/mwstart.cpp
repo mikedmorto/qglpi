@@ -14,6 +14,7 @@ MWStart::MWStart(Config *cfg, QWidget *parent) :
     connect(this->ui->btn_quit,&QPushButton::clicked,this,&MWStart::slotQuit);
     connect(this->ui->btn_about,&QPushButton::clicked,this,&MWStart::slotAbout);
     connect(this->ui->btn_preferences,&QPushButton::clicked,this,&MWStart::slotPreferences);
+    connect(this->ui->btn_connect,&QPushButton::clicked,this,&MWStart::slotConnect);
 }
 
 MWStart::~MWStart()
@@ -38,5 +39,12 @@ void MWStart::slotPreferences()
     if(dia.exec() != QDialog::Accepted)
         return;
     // save config
+
+}
+
+void MWStart::slotConnect()
+{
+    DiaLoginData dia(this);
+    dia.exec();
 
 }
