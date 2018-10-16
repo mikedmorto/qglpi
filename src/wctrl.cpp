@@ -10,6 +10,7 @@ Wctrl::Wctrl(QObject *parent) : QObject(parent)
     mlog->setFile(cfg->getLogfile());
     connect(ws,&MWStart::sigQuit,this,&Wctrl::slotQuit);
     connect(this,&Wctrl::log,mlog,&MLog::slotPut);
+    connect(ws,&MWStart::log,mlog,&MLog::slotPut);
 }
 
 void Wctrl::start()

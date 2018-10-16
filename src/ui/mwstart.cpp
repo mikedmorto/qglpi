@@ -11,6 +11,9 @@ MWStart::MWStart(Config *cfg, QWidget *parent) :
     QPixmap pix("://files/appicon.png");
     ui->lbl_icon->setPixmap(pix.scaled(128,128,Qt::KeepAspectRatio,Qt::SmoothTransformation));
 
+    this->dw = new DWait(this);
+    connect(this->dw,&DWait::sigCancel,&provider,&DataProvider::slotCancel);
+    connect(&this->provider,&DataProvider::log,this,&MWStart::log);
     connect(this->ui->btn_quit,&QPushButton::clicked,this,&MWStart::slotQuit);
     connect(this->ui->btn_about,&QPushButton::clicked,this,&MWStart::slotAbout);
     connect(this->ui->btn_preferences,&QPushButton::clicked,this,&MWStart::slotPreferences);
@@ -51,8 +54,19 @@ void MWStart::slotConnect()
 
     // try auth
     LoginItem item = dia.getLoginData();
-
-
+    log(me,MLog::logDebug,tr("Try auth"));
+    dw->start(tr("Connecting to \"%1\"").arg(item.name));
+    if( !provider.auth(item) or dw->tryStopState() ){
+        QString msg = tr("Error - %1").arg(provider.getLastError());
+        log(me, MLog::logAlert, QString("Failure auth %1").arg(msg));
+        dw->stop();
+        return;
+    }
+    QString res = provider.getResult();
+    log(me, MLog::logInfo, QString("success reconnect"));
+    dw->stop();
+    // auth done!!!
+    qDebug()<<"RESULT - "<<res;
 }
 
 void MWStart::slotAccounts()
