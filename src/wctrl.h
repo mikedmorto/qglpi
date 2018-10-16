@@ -11,12 +11,14 @@ class Wctrl : public QObject
 
     MWStart * ws;
     Config * cfg;
+    MLog * mlog;
+    QString me = "Wctrl";
 public:
     explicit Wctrl(QObject *parent = nullptr);
     void start();
 
 signals:
-
+    void log(const QString &,MLog::LogLevel,const QString &);
 public slots:
     void slotQuit();
 };
