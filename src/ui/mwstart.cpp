@@ -42,7 +42,7 @@ void MWStart::slotPreferences()
     DiaPreferences dia(cfg,this);
     if(dia.exec() != QDialog::Accepted)
         return;
-    // save config
+
 
 }
 

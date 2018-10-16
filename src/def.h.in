@@ -8,7 +8,6 @@
 #define GIT_VERSION "${GIT_VERSION}"
 #define CORP_NAME "MDM-service"
 #define DEF_TIMEOUT 30
-#define API_VER "0.0"
 #define FORMAT_DATE "yyyy-MM-dd"
 #define FORMAT_TIME "hh:mm:ss"
 #define FORMAT_DATETIME "yyyy-MM-dd hh:mm:ss"

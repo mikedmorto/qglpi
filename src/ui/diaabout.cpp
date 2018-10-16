@@ -14,8 +14,6 @@ DiaAbout::DiaAbout(QWidget *parent) :
     text.append(tr("<B>%1</B><BR><HR>").arg(APP_NAME));
     text.append(tr("Application version: %1").arg(GIT_VERSION));
     text.append("<BR>");
-    text.append(tr("API version: %1").arg(API_VER));
-    text.append("<BR>");
     text.append(tr("Build timestamp: %1 %2").arg(QString(__DATE__)).arg(QString(__TIME__)));
     text.append("<BR>");
     text.append(tr("Qt version: %1").arg(qVersion()));
