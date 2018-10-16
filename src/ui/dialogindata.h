@@ -2,25 +2,11 @@
 #define DIALOGINDATA_H
 
 #include <QDialog>
+#include "accountproxymodel.h"
 
 namespace Ui {
 class DiaLoginData;
 }
-
-struct LoginItem{
-    enum AuthType{
-        Password = 0,
-        Token = 1
-    };
-    int authType = Password;
-    QString name;
-    QString serverurl;
-    QString apptoken;
-    QString login;
-    QString pass;
-    QString token;
-};
-
 
 class DiaLoginData : public QDialog
 {

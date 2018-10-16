@@ -4,7 +4,7 @@
 #include <QMainWindow>
 #include "diaabout.h"
 #include "diapreferences.h"
-#include "diaaccaunts.h"
+#include "diaaccounts.h"
 #include "dwait.h"
 #include "dataprovider.h"
 #include "aqp.hpp"

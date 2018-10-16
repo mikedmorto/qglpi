@@ -84,9 +84,9 @@
          </widget>
         </item>
         <item>
-         <widget class="QPushButton" name="btn_accaunts">
+         <widget class="QPushButton" name="btn_accounts">
           <property name="text">
-           <string>Accaunts</string>
+           <string>Accounts</string>
           </property>
          </widget>
         </item>

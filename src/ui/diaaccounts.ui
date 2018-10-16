@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>DiaAccaunts</class>
- <widget class="QDialog" name="DiaAccaunts">
+ <class>DiaAccounts</class>
+ <widget class="QDialog" name="DiaAccounts">
   <property name="windowModality">
    <enum>Qt::WindowModal</enum>
   </property>
@@ -19,11 +19,22 @@
   <property name="modal">
    <bool>true</bool>
   </property>
-  <layout class="QVBoxLayout" name="verticalLayout_2">
-   <item>
+  <layout class="QGridLayout" name="gridLayout">
+   <item row="0" column="0">
     <layout class="QHBoxLayout" name="horizontalLayout_2">
      <item>
-      <widget class="QListView" name="lv_accaunts"/>
+      <layout class="QVBoxLayout" name="verticalLayout_2">
+       <item>
+        <widget class="QLineEdit" name="le_filter">
+         <property name="clearButtonEnabled">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QListView" name="tv"/>
+       </item>
+      </layout>
      </item>
      <item>
       <layout class="QVBoxLayout" name="verticalLayout">
@@ -31,7 +42,7 @@
         <enum>QLayout::SetMinimumSize</enum>
        </property>
        <item>
-        <widget class="QPushButton" name="pushButton_2">
+        <widget class="QPushButton" name="btn_create">
          <property name="text">
           <string>Create</string>
          </property>
@@ -39,12 +50,12 @@
           <bool>false</bool>
          </property>
          <property name="default">
-          <bool>true</bool>
+          <bool>false</bool>
          </property>
         </widget>
        </item>
        <item>
-        <widget class="QPushButton" name="pushButton_3">
+        <widget class="QPushButton" name="btn_edit">
          <property name="text">
           <string>Edit</string>
          </property>
@@ -54,7 +65,7 @@
         </widget>
        </item>
        <item>
-        <widget class="QPushButton" name="pushButton_4">
+        <widget class="QPushButton" name="btn_delete">
          <property name="text">
           <string>Delete</string>
          </property>
@@ -80,14 +91,14 @@
      </item>
     </layout>
    </item>
-   <item>
+   <item row="1" column="0">
     <widget class="Line" name="line">
      <property name="orientation">
       <enum>Qt::Horizontal</enum>
      </property>
     </widget>
    </item>
-   <item>
+   <item row="2" column="0">
     <layout class="QHBoxLayout" name="horizontalLayout">
      <item>
       <spacer name="horizontalSpacer">
@@ -103,7 +114,7 @@
       </spacer>
      </item>
      <item>
-      <widget class="QPushButton" name="pushButton">
+      <widget class="QPushButton" name="btn_close">
        <property name="text">
         <string>Close</string>
        </property>
@@ -117,18 +128,19 @@
   </layout>
  </widget>
  <tabstops>
-  <tabstop>lv_accaunts</tabstop>
-  <tabstop>pushButton_2</tabstop>
-  <tabstop>pushButton_3</tabstop>
-  <tabstop>pushButton_4</tabstop>
-  <tabstop>pushButton</tabstop>
+  <tabstop>le_filter</tabstop>
+  <tabstop>tv</tabstop>
+  <tabstop>btn_create</tabstop>
+  <tabstop>btn_edit</tabstop>
+  <tabstop>btn_delete</tabstop>
+  <tabstop>btn_close</tabstop>
  </tabstops>
  <resources/>
  <connections>
   <connection>
-   <sender>pushButton</sender>
+   <sender>btn_close</sender>
    <signal>clicked()</signal>
-   <receiver>DiaAccaunts</receiver>
+   <receiver>DiaAccounts</receiver>
    <slot>reject()</slot>
    <hints>
     <hint type="sourcelabel">
