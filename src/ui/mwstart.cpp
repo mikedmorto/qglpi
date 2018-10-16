@@ -46,7 +46,12 @@ void MWStart::slotPreferences()
 void MWStart::slotConnect()
 {
     DiaLoginData dia(this);
-    dia.exec();
+    if(dia.execNew() != QDialog::Accepted)
+        return;
+
+    // try auth
+    LoginItem item = dia.getLoginData();
+
 
 }
 
