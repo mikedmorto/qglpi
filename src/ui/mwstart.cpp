@@ -57,16 +57,27 @@ void MWStart::slotConnect()
     log(me,MLog::logDebug,tr("Try auth"));
     dw->start(tr("Connecting to \"%1\"").arg(item.name));
     if( !provider.auth(item) or dw->tryStopState() ){
-        QString msg = tr("Error - %1").arg(provider.getLastError());
-        log(me, MLog::logAlert, QString("Failure auth %1").arg(msg));
+        QString msg = tr("Error: %1").arg(provider.getLastError());
+        log(me, MLog::logAlert, QString("Failure auth. %1").arg(msg));
         dw->stop();
+        AQP::critical(this, "Error", msg);
         return;
     }
-    QString res = provider.getResult();
-    log(me, MLog::logInfo, QString("success reconnect"));
+    log(me, MLog::logInfo, QString("success auth"));
     dw->stop();
-    // auth done!!!
-    qDebug()<<"RESULT - "<<res;
+    // auth done, test session_token
+
+    QString result = provider.getResult();
+    QJsonObject object = QJsonDocument::fromJson(result.toUtf8()).object();
+    QString stok = object["session_token"].toString();
+
+
+    if (stok.isEmpty()){
+        QString msg = tr("Error: Session token is empty");
+        AQP::critical(this, "Error", msg);
+    }else{
+        AQP::information(this, "Info", tr("Session token is %1").arg(stok));
+    }
 }
 
 void MWStart::slotAccounts()

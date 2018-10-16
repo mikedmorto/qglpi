@@ -7,6 +7,7 @@
 #include "diaaccaunts.h"
 #include "dwait.h"
 #include "dataprovider.h"
+#include "aqp.hpp"
 
 namespace Ui {
 class MWStart;

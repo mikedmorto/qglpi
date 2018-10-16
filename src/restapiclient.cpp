@@ -74,16 +74,27 @@ void RestApiClient::replyFinished(QNetworkReply *reply)
 {
     log(me, MLog::logDebug, QString("response received"));
     QByteArray data = reply->readAll();
-    reply->deleteLater();
+    log(me, MLog::logDebug, QString("respond data = %1").arg(QString(data)));
 
-    log(me, MLog::logDebug, QString("JSON = %1").arg(QString(data)));
+    if(reply->error() != QNetworkReply::NoError){
+        log(me, MLog::logAlert, QString("reply error"));
+        error(reply->errorString());
+        return;
+    }
+    log(me, MLog::logDebug, QString("reply ok"));
+    json = QJsonDocument::fromJson(data);
+    QJsonObject object = json.object();
 
     switch (stage) {
+    case Stage_Auth:
+        authDone(json.toJson());
+        break;
     default:
         break;
     }
 
     sigFinished();
+    reply->deleteLater();
 
 }
 

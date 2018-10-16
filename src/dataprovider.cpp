@@ -27,28 +27,12 @@ bool DataProvider::auth(const LoginItem &item)
     client.auth(this->loginItem);
     loop.exec();
 
-    // error processing 1
     if (isError){
         isError = false;
         return false;
     }
     result = client.getResult();
-    QJsonObject object = QJsonDocument::fromJson(result.toUtf8()).object();
-    // error processing 2
-    if (object["status"].toString() == "error"){
-        lastError = object["message"].toString();
-        isError = false;
-        return false;
-    }
 
-    // error processing 3
-    if (object["ssid"].toString().isEmpty()){
-        lastError = tr("SSID is empty");
-        isError = false;
-        return false;
-    }
-
-    // well done
     return true;
 }
 

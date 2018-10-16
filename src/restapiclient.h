@@ -40,6 +40,9 @@ signals:
     // DiaWait control
     void sigSetDiawaitText(const QString &text);
     void sigProgress(const qint64 &bytesNow, const qint64 &bytesTotal);
+
+
+    void authDone(const QString &data);
 public slots:
     void auth(const LoginItem &loginItem);
     void logout();
