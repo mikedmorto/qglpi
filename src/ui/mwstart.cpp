@@ -51,13 +51,7 @@ void MWStart::slotPreferences()
 
 void MWStart::slotConnect()
 {
-    if(this->ui->cb_server->count() <= 0)
-        return;
-
     int ind = this->ui->cb_server->currentIndex();
-    qDebug()<<"index - "<<ind;
-    if(ind <0)
-        return;
     LoginItem item = model.getItemByInd(ind);
     qDebug()<<"Current connection is "<< item.name << " and server is "<<item.serverurl;
     if(item.name.isEmpty()){

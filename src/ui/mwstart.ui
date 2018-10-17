@@ -81,6 +81,12 @@
           <property name="text">
            <string>Connect</string>
           </property>
+          <property name="autoDefault">
+           <bool>false</bool>
+          </property>
+          <property name="default">
+           <bool>true</bool>
+          </property>
          </widget>
         </item>
         <item>
@@ -168,6 +174,14 @@
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
  </widget>
+ <tabstops>
+  <tabstop>btn_connect</tabstop>
+  <tabstop>btn_accounts</tabstop>
+  <tabstop>cb_server</tabstop>
+  <tabstop>btn_preferences</tabstop>
+  <tabstop>btn_about</tabstop>
+  <tabstop>btn_quit</tabstop>
+ </tabstops>
  <resources>
   <include location="../res.qrc"/>
  </resources>
