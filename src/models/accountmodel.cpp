@@ -79,6 +79,13 @@ LoginItem AccountModel::getItem(const QModelIndex &index) const
     return LoginItem();
 }
 
+LoginItem AccountModel::getItemByInd(int ind) const
+{
+    if(ind <0 or ind > this->items.count())
+        return LoginItem();
+    return this->items.at(ind);
+}
+
 void AccountModel::deleteItem(const QModelIndex &index)
 {
     if(!index.isValid())

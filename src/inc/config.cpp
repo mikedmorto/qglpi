@@ -26,6 +26,8 @@ void Config::load()
 
 void Config::save()
 {
+
+    qDebug()<<"logins size is - "<<logins.size();
     QSettings settings(QSettings::IniFormat, QSettings::UserScope, CORP_NAME, APP_NAME);
     settings.setValue("lang", this->lang);
     settings.setValue("log_level", this->loglevel);

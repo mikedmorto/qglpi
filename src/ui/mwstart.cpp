@@ -10,8 +10,11 @@ MWStart::MWStart(Config *cfg, QWidget *parent) :
     this->ui->statusbar->setHidden(true);
     QPixmap pix("://files/appicon.png");
     ui->lbl_icon->setPixmap(pix.scaled(128,128,Qt::KeepAspectRatio,Qt::SmoothTransformation));
-
     this->dw = new DWait(this);
+    this->proxy.setSourceModel(&model);
+    this->cfg->load();
+    model.resetData(this->cfg->getLogins());
+    this->ui->cb_server->setModel(&model);
     connect(this->dw,&DWait::sigCancel,&provider,&DataProvider::slotCancel);
     connect(&this->provider,&DataProvider::log,this,&MWStart::log);
     connect(this->ui->btn_quit,&QPushButton::clicked,this,&MWStart::slotQuit);
@@ -48,12 +51,20 @@ void MWStart::slotPreferences()
 
 void MWStart::slotConnect()
 {
-    DiaLoginData dia(this);
-    if(dia.execNew() != QDialog::Accepted)
+    if(this->ui->cb_server->count() <= 0)
         return;
 
+    int ind = this->ui->cb_server->currentIndex();
+    qDebug()<<"index - "<<ind;
+    if(ind <0)
+        return;
+    LoginItem item = model.getItemByInd(ind);
+    qDebug()<<"Current connection is "<< item.name << " and server is "<<item.serverurl;
+    if(item.name.isEmpty()){
+        AQP::information(this, "Info", tr("The account list is empty. Please add a new account."));
+        return;
+    }
     // try auth
-    LoginItem item = dia.getLoginData();
     log(me,MLog::logDebug,tr("Try auth"));
     dw->start(tr("Connecting to \"%1\"").arg(item.name));
     if( !provider.auth(item) or dw->tryStopState() ){
@@ -78,11 +89,13 @@ void MWStart::slotConnect()
     }else{
         AQP::information(this, "Info", tr("Session token is %1").arg(stok));
     }
+
 }
 
 void MWStart::slotAccounts()
 {
     DiaAccounts dia(cfg,this);
     dia.exec();
-
+    model.resetData(this->cfg->getLogins());
+    this->ui->cb_server->setCurrentIndex(0);
 }

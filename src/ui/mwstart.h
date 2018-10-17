@@ -8,6 +8,7 @@
 #include "dwait.h"
 #include "dataprovider.h"
 #include "aqp.hpp"
+#include "accountproxymodel.h"
 
 namespace Ui {
 class MWStart;
@@ -21,6 +22,8 @@ class MWStart : public QMainWindow
     DWait * dw;
     DataProvider provider;
     QString me = "MWStart";
+    AccountModel model;
+    AccountProxyModel proxy;
 public:
     explicit MWStart(Config * cfg, QWidget *parent = nullptr);
     ~MWStart();

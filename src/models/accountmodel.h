@@ -63,6 +63,7 @@ public:
     int itemCount()const;
     void addItem(const LoginItem &item);
     LoginItem getItem(const QModelIndex &index) const;
+    LoginItem getItemByInd(int ind)const;
     void deleteItem(const QModelIndex &index);
     void updateItem(const QModelIndex &index, const LoginItem &item);
     QVector<LoginItem> getItems()const;
