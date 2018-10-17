@@ -16,6 +16,10 @@ DiaAccounts::DiaAccounts(Config *cfg, QWidget *parent) :
     connect(this->ui->btn_delete,&QPushButton::clicked,this,&DiaAccounts::slotDelete);
     connect(this->ui->le_filter,&QLineEdit::textChanged,&this->proxy,&AccountProxyModel::setFilter);
     this->ui->tv->installEventFilter(this);
+
+    // get accounts from config
+    this->cfg->load();
+    this->model.resetData(cfg->getLogins());
 }
 
 DiaAccounts::~DiaAccounts()
@@ -42,6 +46,8 @@ void DiaAccounts::slotCreate()
         return;
     // add it into model
     model.addItem(dia.getLoginData());
+    this->cfg->setLogins(this->model.getItems());
+    this->cfg->save();
 }
 
 void DiaAccounts::slotEdit()
@@ -55,6 +61,8 @@ void DiaAccounts::slotEdit()
     if(dia.execEdit(item) != QDialog::Accepted)
         return;
     model.updateItem(index,dia.getLoginData());
+    this->cfg->setLogins(this->model.getItems());
+    this->cfg->save();
 }
 
 void DiaAccounts::slotDelete()
@@ -68,4 +76,6 @@ void DiaAccounts::slotDelete()
         return;
     }
     model.deleteItem(index);
+    this->cfg->setLogins(this->model.getItems());
+    this->cfg->save();
 }

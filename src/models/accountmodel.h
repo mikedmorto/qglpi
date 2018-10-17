@@ -3,6 +3,7 @@
 
 #include <QObject>
 #include <QAbstractTableModel>
+#include "QDebug"
 
 struct LoginItem{
     enum AuthType{
@@ -18,7 +19,7 @@ struct LoginItem{
     QString token;
     QString session_token;
     void imp(const QString &data){
-        QStringList sd = data.split(",");
+        QStringList sd = data.split(";");
         if(sd.count() != 7 )
             return;
         authType = QString(sd.at(0)).toInt();

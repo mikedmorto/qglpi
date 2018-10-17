@@ -26,6 +26,9 @@
       <layout class="QVBoxLayout" name="verticalLayout_2">
        <item>
         <widget class="QLineEdit" name="le_filter">
+         <property name="placeholderText">
+          <string>Filter</string>
+         </property>
          <property name="clearButtonEnabled">
           <bool>true</bool>
          </property>

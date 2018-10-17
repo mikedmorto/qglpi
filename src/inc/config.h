@@ -6,6 +6,7 @@
 #include <QStandardPaths>
 #include "mlog.h"
 #include "def.h"
+#include "accountmodel.h"
 
 class Config
 {
@@ -17,6 +18,7 @@ class Config
     QString lang;
     int loglevel;
     QString logfile;
+    QVector<LoginItem> logins;
 
 public:
     explicit Config();
@@ -26,11 +28,13 @@ public:
     void setLang(int lang);
     void setLoglevel(int level);
     void setLogfile(const QString &path);
+    void setLogins(const QVector<LoginItem> &vec);
 
     int getLang()const;
     QString getLangString()const;
     int getLoglevel()const;
     QString getLogfile()const;
+    QVector<LoginItem> getLogins()const;
 };
 
 #endif // CONFIG_H
