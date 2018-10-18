@@ -34,6 +34,8 @@ public:
 
     bool auth(const LoginItem &item);
     bool logout();
+    bool getMyProfiles();
+    bool getFullSession();
 
 
 signals:

@@ -21,6 +21,8 @@ class RestApiClient : public QObject
         Null = 0,
         Stage_Auth,
         Stage_Logout,
+        Stage_getMyProfiles,
+        Stage_getFullSession
     };
 
     Stage stage;
@@ -28,6 +30,9 @@ class RestApiClient : public QObject
     QString session_token;
     QJsonDocument json;
     LoginItem currentLogin;
+
+
+    void invokeGet(QNetworkRequest &request);
 
 public:
     explicit RestApiClient(QObject *parent = nullptr);
@@ -47,9 +52,13 @@ signals:
 
     void authDone(const QString &data);
     void logoutDone(const QString &data);
+    void getMyProfilesDone(const QString &data);
+    void getFullSessionDone(const QString &data);
 public slots:
     void auth(const LoginItem &loginItem);
     void logout();
+    void getMyProfiles();
+    void getFullSession();
 
 
     void replyFinished(QNetworkReply *reply);

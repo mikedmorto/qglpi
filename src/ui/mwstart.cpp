@@ -84,7 +84,20 @@ void MWStart::slotConnect()
     }
 
     this->provider.setLogin(item);
-    // testing get my profile procedure
+    // testing getFullSession procedure
+    log(me,MLog::logDebug,tr("Try getMyProfiles"));
+    dw->start(tr("getFullSession"));
+    if( !provider.getFullSession() or dw->tryStopState() ){
+        QString msg = tr("Error: %1").arg(provider.getLastError());
+        log(me, MLog::logAlert, QString("Failure. %1").arg(msg));
+        dw->stop();
+        AQP::critical(this, "Error", msg);
+        return;
+    }
+    log(me, MLog::logInfo, QString("Success getFullSession"));
+    dw->stop();
+
+
 
     // testing logout procedure
     log(me,MLog::logDebug,tr("Try logout"));

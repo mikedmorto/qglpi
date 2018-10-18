@@ -62,6 +62,36 @@ bool DataProvider::logout()
     return true;
 }
 
+bool DataProvider::getMyProfiles()
+{
+    isError = false;
+    client.getMyProfiles();
+    loop.exec();
+
+    if (isError){
+        isError = false;
+        return false;
+    }
+    result = client.getResult();
+
+    return true;
+}
+
+bool DataProvider::getFullSession()
+{
+    isError = false;
+    client.getFullSession();
+    loop.exec();
+
+    if (isError){
+        isError = false;
+        return false;
+    }
+    result = client.getResult();
+
+    return true;
+}
+
 void DataProvider::slotError(const QString &message)
 {
     isError = true;

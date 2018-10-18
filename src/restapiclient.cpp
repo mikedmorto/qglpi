@@ -1,5 +1,13 @@
 #include "restapiclient.h"
 
+void RestApiClient::invokeGet(QNetworkRequest &request)
+{
+    QSslConfiguration conf(request.sslConfiguration());
+    conf.setPeerVerifyMode(QSslSocket::VerifyNone);
+    request.setSslConfiguration(conf);
+    networkManager->get(request);
+}
+
 RestApiClient::RestApiClient(QObject *parent) : QObject(parent)
 {
     stage = Null;
@@ -55,18 +63,11 @@ void RestApiClient::auth(const LoginItem &loginItem)
     }
 
     request.setRawHeader("App-Token", loginItem.apptoken.toUtf8());
-
-
-    QSslConfiguration conf(request.sslConfiguration());
-    conf.setPeerVerifyMode(QSslSocket::VerifyNone);
-    request.setSslConfiguration(conf);
-    networkManager->get(request);
+    invokeGet(request);
 }
 
 void RestApiClient::logout()
 {
-
-    //
     stage = Stage_Logout;
 
     log(me,MLog::logDebug,tr("Start logout"));
@@ -75,11 +76,33 @@ void RestApiClient::logout()
     request.setRawHeader("Session-Token",currentLogin.session_token.toUtf8());
     request.setRawHeader("App-Token", currentLogin.apptoken.toUtf8());
 
+    invokeGet(request);
+}
 
-    QSslConfiguration conf(request.sslConfiguration());
-    conf.setPeerVerifyMode(QSslSocket::VerifyNone);
-    request.setSslConfiguration(conf);
-    networkManager->get(request);
+void RestApiClient::getMyProfiles()
+{
+    stage = Stage_getMyProfiles;
+
+    log(me,MLog::logDebug,tr("Start getMyProfiles"));
+    QNetworkRequest request(QUrl(currentLogin.serverurl + "getMyProfiles"));
+    request.setHeader(QNetworkRequest::ContentTypeHeader, "application/json");
+    request.setRawHeader("Session-Token",currentLogin.session_token.toUtf8());
+    request.setRawHeader("App-Token", currentLogin.apptoken.toUtf8());
+
+    invokeGet(request);
+}
+
+void RestApiClient::getFullSession()
+{
+    stage = Stage_getFullSession;
+
+    log(me,MLog::logDebug,tr("Start getFullSession"));
+    QNetworkRequest request(QUrl(currentLogin.serverurl + "getFullSession"));
+    request.setHeader(QNetworkRequest::ContentTypeHeader, "application/json");
+    request.setRawHeader("Session-Token",currentLogin.session_token.toUtf8());
+    request.setRawHeader("App-Token", currentLogin.apptoken.toUtf8());
+
+    invokeGet(request);
 }
 
 void RestApiClient::replyFinished(QNetworkReply *reply)
