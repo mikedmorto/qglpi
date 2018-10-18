@@ -67,14 +67,14 @@ void MWStart::slotConnect()
         AQP::critical(this, "Error", msg);
         return;
     }
-    log(me, MLog::logInfo, QString("success auth"));
+    log(me, MLog::logInfo, QString("Success auth"));
     dw->stop();
     // auth done, test session_token
 
     QString result = provider.getResult();
     QJsonObject object = QJsonDocument::fromJson(result.toUtf8()).object();
     QString stok = object["session_token"].toString();
-
+    item.session_token = stok;
 
     if (stok.isEmpty()){
         QString msg = tr("Error: Session token is empty");
@@ -82,6 +82,22 @@ void MWStart::slotConnect()
     }else{
         AQP::information(this, "Info", tr("Session token is %1").arg(stok));
     }
+
+    this->provider.setLogin(item);
+    // testing get my profile procedure
+
+    // testing logout procedure
+    log(me,MLog::logDebug,tr("Try logout"));
+    dw->start(tr("Logout from \"%1\"").arg(item.name));
+    if( !provider.logout() or dw->tryStopState() ){
+        QString msg = tr("Error: %1").arg(provider.getLastError());
+        log(me, MLog::logAlert, QString("Failure. %1").arg(msg));
+        dw->stop();
+        AQP::critical(this, "Error", msg);
+        return;
+    }
+    log(me, MLog::logInfo, QString("Success logout"));
+    dw->stop();
 
 }
 

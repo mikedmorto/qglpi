@@ -27,12 +27,15 @@ class RestApiClient : public QObject
     LoginItem loginItem;
     QString session_token;
     QJsonDocument json;
+    LoginItem currentLogin;
 
 public:
     explicit RestApiClient(QObject *parent = nullptr);
     ~RestApiClient();
 
     QString getResult()const;
+    void setLogin(const LoginItem &login);
+    LoginItem getLogin()const;
 signals:
     void log(const QString &,MLog::LogLevel,const QString &);
     void criticalError(const QString &message);
@@ -43,6 +46,7 @@ signals:
 
 
     void authDone(const QString &data);
+    void logoutDone(const QString &data);
 public slots:
     void auth(const LoginItem &loginItem);
     void logout();

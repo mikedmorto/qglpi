@@ -20,6 +20,17 @@ QString DataProvider::getResult()
     return result;
 }
 
+void DataProvider::setLogin(const LoginItem &login)
+{
+    this->currentLogin = login;
+    this->client.setLogin(this->currentLogin);
+}
+
+LoginItem DataProvider::getLogin() const
+{
+    return this->currentLogin;
+}
+
 bool DataProvider::auth(const LoginItem &item)
 {
     isError = false;
@@ -38,7 +49,17 @@ bool DataProvider::auth(const LoginItem &item)
 
 bool DataProvider::logout()
 {
-    return false;
+    isError = false;
+    client.logout();
+    loop.exec();
+
+    if (isError){
+        isError = false;
+        return false;
+    }
+    result = client.getResult();
+
+    return true;
 }
 
 void DataProvider::slotError(const QString &message)

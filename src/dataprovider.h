@@ -20,6 +20,7 @@ class DataProvider : public QObject
     QString lastError;
     QString result;
     bool isError;
+    LoginItem currentLogin;
 
 
 public:
@@ -27,6 +28,9 @@ public:
 
     QString getLastError();
     QString getResult();
+
+    void setLogin(const LoginItem &login);
+    LoginItem getLogin()const;
 
     bool auth(const LoginItem &item);
     bool logout();

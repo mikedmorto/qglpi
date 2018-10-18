@@ -18,13 +18,23 @@ QString RestApiClient::getResult() const
     return json.toJson();
 }
 
+void RestApiClient::setLogin(const LoginItem &login)
+{
+    this->currentLogin = login;
+}
+
+LoginItem RestApiClient::getLogin() const
+{
+    return currentLogin;
+}
+
 void RestApiClient::auth(const LoginItem &loginItem)
 {
     stage = Stage_Auth;
 
     this->loginItem = loginItem;
 
-
+    log(me,MLog::logDebug,tr("Start auth"));
 
     QNetworkRequest request(QUrl(loginItem.serverurl + "initSession"));
     request.setHeader(QNetworkRequest::ContentTypeHeader, "application/json");
@@ -51,23 +61,25 @@ void RestApiClient::auth(const LoginItem &loginItem)
     conf.setPeerVerifyMode(QSslSocket::VerifyNone);
     request.setSslConfiguration(conf);
     networkManager->get(request);
-
-//    log(me, MLog::logDebug, QString("Authorization ")
-//                .arg(login).arg(pass));
-
-//    QJsonObject object;
-//    object["login"] = login;
-//    object["password"] = pass;
-//    object["apiver"] = API_VER;
-//    QJsonDocument document(object);
-//    sigPutLog(me, MLog::logDebug, QString(document.toJson()));
-//    invokePost("auth", document);
-
 }
 
 void RestApiClient::logout()
 {
 
+    //
+    stage = Stage_Logout;
+
+    log(me,MLog::logDebug,tr("Start logout"));
+    QNetworkRequest request(QUrl(currentLogin.serverurl + "killSession"));
+    request.setHeader(QNetworkRequest::ContentTypeHeader, "application/json");
+    request.setRawHeader("Session-Token",currentLogin.session_token.toUtf8());
+    request.setRawHeader("App-Token", currentLogin.apptoken.toUtf8());
+
+
+    QSslConfiguration conf(request.sslConfiguration());
+    conf.setPeerVerifyMode(QSslSocket::VerifyNone);
+    request.setSslConfiguration(conf);
+    networkManager->get(request);
 }
 
 void RestApiClient::replyFinished(QNetworkReply *reply)
@@ -88,7 +100,12 @@ void RestApiClient::replyFinished(QNetworkReply *reply)
 
     switch (stage) {
     case Stage_Auth:
+        log(me,MLog::logDebug,tr("Done auth"));
         authDone(json.toJson());
+        break;
+    case Stage_Logout:
+        log(me,MLog::logDebug,tr("Done logout"));
+        logoutDone(json.toJson());
         break;
     default:
         break;
