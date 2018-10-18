@@ -79,6 +79,7 @@ void RestApiClient::replyFinished(QNetworkReply *reply)
     if(reply->error() != QNetworkReply::NoError){
         log(me, MLog::logAlert, QString("reply error"));
         error(reply->errorString());
+        reply->deleteLater();
         return;
     }
     log(me, MLog::logDebug, QString("reply ok"));

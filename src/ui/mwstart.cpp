@@ -53,7 +53,6 @@ void MWStart::slotConnect()
 {
     int ind = this->ui->cb_server->currentIndex();
     LoginItem item = model.getItemByInd(ind);
-    qDebug()<<"Current connection is "<< item.name << " and server is "<<item.serverurl;
     if(item.name.isEmpty()){
         AQP::information(this, "Info", tr("The account list is empty. Please add a new account."));
         return;
