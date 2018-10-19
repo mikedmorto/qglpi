@@ -1,5 +1,11 @@
 #include "wctrl.h"
 
+void Wctrl::startMWMain()
+{
+
+    this->mainw.start(this->currentLogin,this->cfg);
+}
+
 Wctrl::Wctrl(QObject *parent) : QObject(parent)
 {
     cfg = new Config();
@@ -11,6 +17,9 @@ Wctrl::Wctrl(QObject *parent) : QObject(parent)
     connect(ws,&MWStart::sigQuit,this,&Wctrl::slotQuit);
     connect(this,&Wctrl::log,mlog,&MLog::slotPut);
     connect(ws,&MWStart::log,mlog,&MLog::slotPut);
+    connect(ws,&MWStart::sigAuthDone,this,&Wctrl::slotAuthDone);
+
+    connect(&mainw,&MWMain::log,mlog,&MLog::slotPut);
 }
 
 void Wctrl::start()
@@ -34,4 +43,11 @@ void Wctrl::slotQuit()
     // this is the place for last operations
     // example for save configuration etc
     exit(0);
+}
+
+void Wctrl::slotAuthDone()
+{
+    this->currentLogin = this->ws->getLogin();
+    this->ws->hide();
+    this->startMWMain();
 }

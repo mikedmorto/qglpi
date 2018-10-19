@@ -29,6 +29,11 @@ MWStart::~MWStart()
     delete ui;
 }
 
+LoginItem MWStart::getLogin()
+{
+    return this->currentLogin;
+}
+
 void MWStart::slotQuit()
 {
     this->sigQuit();
@@ -83,6 +88,9 @@ void MWStart::slotConnect()
         AQP::information(this, "Info", tr("Session token is %1").arg(stok));
     }
 
+    this->currentLogin = item;
+
+
     this->provider.setLogin(item);
     // testing getFullSession procedure
     log(me,MLog::logDebug,tr("Try getMyProfiles"));
@@ -111,6 +119,7 @@ void MWStart::slotConnect()
     }
     log(me, MLog::logInfo, QString("Success logout"));
     dw->stop();
+    sigAuthDone();
 
 }
 
