@@ -160,7 +160,7 @@
    <item row="1" column="0">
     <layout class="QGridLayout" name="gridLayout_3">
      <item row="0" column="0">
-      <widget class="QCheckBox" name="checkBox_ignoreSsl">
+      <widget class="QCheckBox" name="cbox_ignoreSsl">
        <property name="text">
         <string>Ignore ssl cert</string>
        </property>
