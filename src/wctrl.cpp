@@ -18,6 +18,8 @@ Wctrl::Wctrl(QObject *parent) : QObject(parent)
     connect(this,&Wctrl::log,mlog,&MLog::slotPut);
     connect(ws,&MWStart::log,mlog,&MLog::slotPut);
     connect(ws,&MWStart::sigAuthDone,this,&Wctrl::slotAuthDone);
+
+    connect(&mainw,&MWMain::log,mlog,&MLog::slotPut);
 }
 
 void Wctrl::start()

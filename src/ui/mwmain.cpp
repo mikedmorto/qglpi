@@ -10,6 +10,7 @@ MWMain::MWMain(QWidget *parent) :
 
     connect(this->ui->actionAbout,&QAction::triggered,this,&MWMain::slotAbout);
     connect(this->ui->actionQuit,&QAction::triggered,this,&MWMain::slotQuit);
+    connect(this->ui->actionPreferences,&QAction::triggered,this,&MWMain::slotPreferences);
 }
 
 void MWMain::start(const LoginItem &login, Config *cfg)
@@ -20,6 +21,13 @@ void MWMain::start(const LoginItem &login, Config *cfg)
 void MWMain::slotQuit()
 {
     QApplication::quit();
+}
+
+void MWMain::slotPreferences()
+{
+    DiaPreferences dia(cfg,this);
+    if(dia.exec() != QDialog::Accepted)
+        return;
 }
 
 MWMain::~MWMain()

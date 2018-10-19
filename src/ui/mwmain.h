@@ -3,6 +3,7 @@
 
 #include <QMainWindow>
 #include "basewin.h"
+#include "diapreferences.h"
 
 namespace Ui {
 class MWMain;
@@ -23,6 +24,7 @@ private:
     Ui::MWMain *ui;
 private slots:
     void slotQuit();
+    void slotPreferences();
 };
 
 #endif // MWMAIN_H
