@@ -4,6 +4,7 @@
 #include <QObject>
 #include "def.h"
 #include "mwstart.h"
+#include "mwmain.h"
 
 class Wctrl : public QObject
 {
@@ -13,6 +14,11 @@ class Wctrl : public QObject
     Config * cfg;
     MLog * mlog;
     QString me = "Wctrl";
+    LoginItem currentLogin;
+    MWMain mainw;
+
+    void startMWMain();
+
 public:
     explicit Wctrl(QObject *parent = nullptr);
     void start();
@@ -21,6 +27,8 @@ signals:
     void log(const QString &,MLog::LogLevel,const QString &);
 public slots:
     void slotQuit();
+private slots:
+    void slotAuthDone();
 };
 
 #endif // WCTRL_H

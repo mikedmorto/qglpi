@@ -24,13 +24,16 @@ class MWStart : public QMainWindow
     QString me = "MWStart";
     AccountModel model;
     AccountProxyModel proxy;
+    LoginItem currentLogin;
 public:
     explicit MWStart(Config * cfg, QWidget *parent = nullptr);
     ~MWStart();
+    LoginItem getLogin();
 
 signals:
     void sigQuit();
     void log(const QString &,MLog::LogLevel,const QString &);
+    void sigAuthDone();
 private slots:
     void slotQuit();
     void slotAbout();

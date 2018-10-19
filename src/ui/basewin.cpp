@@ -14,6 +14,11 @@ BaseWin::BaseWin(QWidget *parent) : QMainWindow(parent)
     connect(this->shcClose,&QShortcut::activated,this,&BaseWin::close);
 }
 
+BaseWin::~BaseWin()
+{
+
+}
+
 void BaseWin::start(const LoginItem &login, Config *cfg)
 {
     this->currentLogin = login;
@@ -48,7 +53,6 @@ bool BaseWin::eventFilter(QObject *obj, QEvent *event)
 void BaseWin::closeEvent(QCloseEvent *event)
 {
     event->accept();
-    deleteLater();
 }
 
 void BaseWin::slotAbout()
@@ -68,6 +72,7 @@ void BaseWin::slotError()
 void BaseWin::slotStatusBar()
 {
     // rewrite the status bar
+    qDebug()<<"INFOBAR";
     infobar.clear();
     infobar.setText(tr("I am infobar"));
 }

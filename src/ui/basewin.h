@@ -3,12 +3,12 @@
 
 #include <QMainWindow>
 #include <QObject>
+#include <QLabel>
+#include <QShortcut>
 #include "accountmodel.h"
 #include "mlog.h"
 #include "dataprovider.h"
 #include "dwait.h"
-#include <QLabel>
-#include <QShortcut>
 #include "diaabout.h"
 #include "aqp.hpp"
 
@@ -18,7 +18,7 @@ class BaseWin : public QMainWindow
 
 public:
     explicit BaseWin(QWidget *parent = nullptr);
-    virtual ~BaseWin() = 0;
+    ~BaseWin();
     virtual void start(const LoginItem &login,Config * cfg);
     virtual void slotTerminate();
     virtual void slotUpdateSession(const LoginItem &login);
@@ -31,7 +31,7 @@ protected:
     Config * cfg;
     QLabel infobar;
     QShortcut * shcClose;
-    QString me = "";
+    const QString me = "";
 
 
     bool eventFilter(QObject *obj, QEvent *event) override;
