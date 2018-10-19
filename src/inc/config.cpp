@@ -4,6 +4,7 @@ Config::Config()
 {
     this->lang = "en";
     this->loglevel = MLog::logAlert;
+    this->ignoreSsl = false;
 }
 
 void Config::load()
@@ -12,6 +13,7 @@ void Config::load()
     this->lang = settings.value("lang", "en").toString();
     this->loglevel = settings.value("log_level", MLog::logNone).toInt();
     this->logfile = settings.value("log_file", "").toString();
+    this->ignoreSsl = settings.value("ignore_ssl_cert", false).toBool();
     int size = settings.beginReadArray("accounts");
     this->logins.clear();
     for (int i = 0; i < size; ++i) {
@@ -32,6 +34,7 @@ void Config::save()
     settings.setValue("lang", this->lang);
     settings.setValue("log_level", this->loglevel);
     settings.setValue("log_file", this->logfile);
+    settings.setValue("ignore_ssl_cert", this->ignoreSsl);
     settings.beginWriteArray("accounts");
     for (int i = 0; i < logins.size(); ++i) {
     settings.setArrayIndex(i);
@@ -63,6 +66,11 @@ void Config::setLogfile(const QString &path)
     this->logfile = path;
 }
 
+void Config::setIgnoreSsl(bool state)
+{
+    this->ignoreSsl = state;
+}
+
 void Config::setLogins(const QVector<LoginItem> &vec)
 {
     this->logins = vec;
@@ -91,6 +99,11 @@ int Config::getLoglevel() const
 QString Config::getLogfile() const
 {
     return this->logfile;
+}
+
+bool Config::getIgnoreSsl() const
+{
+    return this->ignoreSsl;
 }
 
 QVector<LoginItem> Config::getLogins() const

@@ -15,6 +15,7 @@ DiaPreferences::DiaPreferences(Config *cfg, QWidget *parent) :
     this->ui->le_logpath->setText(this->cfg->getLogfile());
     this->ui->cbox_lang->setCurrentIndex(this->cfg->getLang());
     this->ui->cbox_loglevel->setCurrentIndex(this->cfg->getLoglevel());
+    this->ui->checkBox_ignoreSsl->setChecked(this->cfg->getIgnoreSsl());
 }
 
 DiaPreferences::~DiaPreferences()
@@ -28,6 +29,7 @@ void DiaPreferences::slotPreAccept()
     this->cfg->setLang(this->ui->cbox_lang->currentIndex());
     this->cfg->setLogfile(this->ui->le_logpath->text());
     this->cfg->setLoglevel(this->ui->cbox_loglevel->currentIndex());
+    this->cfg->setIgnoreSsl(this->ui->checkBox_ignoreSsl->isChecked());
     this->cfg->save();
     this->accept();
 }

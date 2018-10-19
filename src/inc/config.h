@@ -18,6 +18,7 @@ class Config
     QString lang;
     int loglevel;
     QString logfile;
+    bool ignoreSsl;
     QVector<LoginItem> logins;
 
 public:
@@ -28,12 +29,14 @@ public:
     void setLang(int lang);
     void setLoglevel(int level);
     void setLogfile(const QString &path);
+    void setIgnoreSsl(bool state);
     void setLogins(const QVector<LoginItem> &vec);
 
     int getLang()const;
     QString getLangString()const;
     int getLoglevel()const;
     QString getLogfile()const;
+    bool getIgnoreSsl()const;
     QVector<LoginItem> getLogins()const;
 };
 
