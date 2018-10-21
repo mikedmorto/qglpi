@@ -3,9 +3,17 @@
 void RestApiClient::invokeGet(QNetworkRequest &request)
 {
     QSslConfiguration conf(request.sslConfiguration());
-    conf.setPeerVerifyMode(QSslSocket::VerifyNone);
+    if(isIgnoreSsl){
+        conf.setPeerVerifyMode(QSslSocket::VerifyNone);
+    }
     request.setSslConfiguration(conf);
     networkManager->get(request);
+}
+
+void RestApiClient::setIgnoreSslCert(bool isIgnoreSsl)
+{
+    this->isIgnoreSsl = isIgnoreSsl;
+    log(me,MLog::logDebug,tr("Set ignore ssl certificates - %1").arg(this->isIgnoreSsl));
 }
 
 RestApiClient::RestApiClient(QObject *parent) : QObject(parent)

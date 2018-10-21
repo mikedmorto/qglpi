@@ -63,6 +63,7 @@ void MWStart::slotConnect()
         return;
     }
     // try auth
+    this->provider.setIgnoreSslCert(cfg->getIgnoreSsl());
     log(me,MLog::logDebug,tr("Try auth"));
     dw->start(tr("Connecting to \"%1\"").arg(item.name));
     if( !provider.auth(item) or dw->tryStopState() ){

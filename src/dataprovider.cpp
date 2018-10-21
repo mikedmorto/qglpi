@@ -31,6 +31,12 @@ LoginItem DataProvider::getLogin() const
     return this->currentLogin;
 }
 
+void DataProvider::setIgnoreSslCert(bool isIgnoreSsl)
+{
+    this->isIgnoreSsl = isIgnoreSsl;
+    this->client.setIgnoreSslCert(this->isIgnoreSsl);
+}
+
 bool DataProvider::auth(const LoginItem &item)
 {
     isError = false;

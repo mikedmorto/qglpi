@@ -24,6 +24,7 @@ void BaseWin::start(const LoginItem &login, Config *cfg)
     this->currentLogin = login;
     this->cfg = cfg;
     provider.setLogin(this->currentLogin);
+    provider.setIgnoreSslCert(cfg->getIgnoreSsl());
     slotStatusBar();
 
     show();
@@ -72,7 +73,6 @@ void BaseWin::slotError()
 void BaseWin::slotStatusBar()
 {
     // rewrite the status bar
-    qDebug()<<"INFOBAR";
     infobar.clear();
     infobar.setText(tr("I am infobar"));
 }

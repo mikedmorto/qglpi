@@ -21,6 +21,7 @@ class DataProvider : public QObject
     QString result;
     bool isError;
     LoginItem currentLogin;
+    bool isIgnoreSsl = false;
 
 
 public:
@@ -31,6 +32,7 @@ public:
 
     void setLogin(const LoginItem &login);
     LoginItem getLogin()const;
+    void setIgnoreSslCert(bool isIgnoreSsl);
 
     bool auth(const LoginItem &item);
     bool logout();

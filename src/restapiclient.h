@@ -30,6 +30,7 @@ class RestApiClient : public QObject
     QString session_token;
     QJsonDocument json;
     LoginItem currentLogin;
+    bool isIgnoreSsl = false;
 
 
     void invokeGet(QNetworkRequest &request);
@@ -41,6 +42,8 @@ public:
     QString getResult()const;
     void setLogin(const LoginItem &login);
     LoginItem getLogin()const;
+    void setIgnoreSslCert(bool isIgnoreSsl);
+
 signals:
     void log(const QString &,MLog::LogLevel,const QString &);
     void criticalError(const QString &message);
