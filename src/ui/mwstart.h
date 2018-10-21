@@ -9,6 +9,7 @@
 #include "dataprovider.h"
 #include "aqp.hpp"
 #include "accountproxymodel.h"
+#include "sessionobject.h"
 
 namespace Ui {
 class MWStart;
