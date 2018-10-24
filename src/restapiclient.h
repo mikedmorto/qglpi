@@ -22,7 +22,9 @@ class RestApiClient : public QObject
         Stage_Auth,
         Stage_Logout,
         Stage_getMyProfiles,
-        Stage_getFullSession
+        Stage_getFullSession,
+        Stage_getMyEntities,
+        Stage_getActiveEntities
     };
 
     Stage stage;
@@ -57,11 +59,14 @@ signals:
     void logoutDone(const QString &data);
     void getMyProfilesDone(const QString &data);
     void getFullSessionDone(const QString &data);
+    void getMyEntitiesDone(const QString &data);
 public slots:
     void auth(const LoginItem &loginItem);
     void logout();
     void getMyProfiles();
     void getFullSession();
+    void getMyEntities();
+    void getActiveEntities();
 
 
     void replyFinished(QNetworkReply *reply);

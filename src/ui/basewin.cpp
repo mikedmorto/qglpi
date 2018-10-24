@@ -4,6 +4,9 @@ BaseWin::BaseWin(QWidget *parent) : QMainWindow(parent)
 {
     setWindowIcon(QIcon("://files/appicon.png"));
     dw = std::unique_ptr<DWait>(new DWait(this));
+    infobar.setObjectName(QString("infobar"));
+    infobar.installEventFilter(this);
+
 
     connect(&provider, &DataProvider::log,this,&BaseWin::log);
     connect(&provider, &DataProvider::sigProgress, dw.get(), &DWait::setProgress);
@@ -80,5 +83,8 @@ void BaseWin::slotStatusBar()
 void BaseWin::slotSession()
 {
     // there is requests for session status
+    // show dialog entities
+    DiaEntitiesList dia(this);
+    dia.exec();
     slotStatusBar();
 }

@@ -11,6 +11,7 @@
 #include "dwait.h"
 #include "diaabout.h"
 #include "aqp.hpp"
+#include "diaentitieslist.h"
 
 class BaseWin : public QMainWindow
 {

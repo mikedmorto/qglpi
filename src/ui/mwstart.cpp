@@ -105,10 +105,21 @@ void MWStart::slotConnect()
     GLP::SessionObject sess;
     QJsonObject obj = QJsonDocument::fromJson(provider.getResult().toUtf8()).object();
     sess.fromJsonObject(obj);
-    qDebug()<<"glpiname - "<<sess.sessionGLPI.glpiname;
-    qDebug()<<"glpirealname - "<<sess.sessionGLPI.glpirealname;
-    qDebug()<<"glpifirstname - "<<sess.sessionGLPI.glpifirstname;
-    qDebug()<<"date - "<<sess.sessionGLPI.glpi_currenttime;
+
+
+    // test entities
+    // getMyEntities
+    log(me,MLog::logDebug,tr("Try getActiveEntities"));
+    dw->start(tr("getActiveEntities"));
+    if( !provider.getActiveEntities() or dw->tryStopState() ){
+        QString msg = tr("Error: %1").arg(provider.getLastError());
+        log(me, MLog::logAlert, QString("Failure. %1").arg(msg));
+        dw->stop();
+        AQP::critical(this, "Error", msg);
+        return;
+    }
+    log(me, MLog::logInfo, QString("Success getActiveEntities"));
+    dw->stop();
 
 
 //    // testing logout procedure

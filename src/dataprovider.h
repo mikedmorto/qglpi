@@ -38,6 +38,8 @@ public:
     bool logout();
     bool getMyProfiles();
     bool getFullSession();
+    bool getMyEntities();
+    bool getActiveEntities();
 
 
 signals:

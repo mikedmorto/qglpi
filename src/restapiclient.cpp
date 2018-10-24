@@ -113,6 +113,32 @@ void RestApiClient::getFullSession()
     invokeGet(request);
 }
 
+void RestApiClient::getMyEntities()
+{
+    stage = Stage_getMyEntities;
+
+    log(me,MLog::logDebug,tr("Start getMyEntities"));
+    QNetworkRequest request(QUrl(currentLogin.serverurl + "getMyEntities"));
+    request.setHeader(QNetworkRequest::ContentTypeHeader, "application/json");
+    request.setRawHeader("Session-Token",currentLogin.session_token.toUtf8());
+    request.setRawHeader("App-Token", currentLogin.apptoken.toUtf8());
+
+    invokeGet(request);
+}
+
+void RestApiClient::getActiveEntities()
+{
+    stage = Stage_getActiveEntities;
+
+    log(me,MLog::logDebug,tr("Start getActiveEntities"));
+    QNetworkRequest request(QUrl(currentLogin.serverurl + "getActiveEntities"));
+    request.setHeader(QNetworkRequest::ContentTypeHeader, "application/json");
+    request.setRawHeader("Session-Token",currentLogin.session_token.toUtf8());
+    request.setRawHeader("App-Token", currentLogin.apptoken.toUtf8());
+
+    invokeGet(request);
+}
+
 void RestApiClient::replyFinished(QNetworkReply *reply)
 {
     log(me, MLog::logDebug, QString("response received"));
@@ -137,6 +163,14 @@ void RestApiClient::replyFinished(QNetworkReply *reply)
     case Stage_Logout:
         log(me,MLog::logDebug,tr("Done logout"));
         logoutDone(json.toJson());
+        break;
+    case Stage_getFullSession:
+        log(me,MLog::logDebug,tr("Done getFullSession"));
+        getFullSessionDone(json.toJson());
+        break;
+    case Stage_getMyEntities:
+        log(me,MLog::logDebug,tr("Done getMyEntities"));
+        getMyEntitiesDone(json.toJson());
         break;
     default:
         break;

@@ -98,6 +98,36 @@ bool DataProvider::getFullSession()
     return true;
 }
 
+bool DataProvider::getMyEntities()
+{
+    isError = false;
+    client.getMyEntities();
+    loop.exec();
+
+    if (isError){
+        isError = false;
+        return false;
+    }
+    result = client.getResult();
+
+    return true;
+}
+
+bool DataProvider::getActiveEntities()
+{
+    isError = false;
+    client.getActiveEntities();
+    loop.exec();
+
+    if (isError){
+        isError = false;
+        return false;
+    }
+    result = client.getResult();
+
+    return true;
+}
+
 void DataProvider::slotError(const QString &message)
 {
     isError = true;
